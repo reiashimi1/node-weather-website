@@ -9,6 +9,7 @@ const forecast = (latitude, longitude, callback) => {
     } else if (body.error) {
       callback("Unable to find the location 2");
     } else {
+      const { name, country, region, lat, lon } = body.location;
       const { temperature, precip } = body.current;
       callback(
         undefined,
@@ -16,7 +17,9 @@ const forecast = (latitude, longitude, callback) => {
           temperature +
           " degrees. There is " +
           precip +
-          "% chance to be raining"
+          "% chance to be raining. Some other data are: [" +
+          [lat, lon, name, country, region].join(", ") +
+          "]"
       );
     }
   });
